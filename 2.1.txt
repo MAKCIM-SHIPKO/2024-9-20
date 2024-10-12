@@ -1,0 +1,193 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Book {
+    private:
+        std::string author;
+        std::string name;
+        std::string title;
+        int year;
+        float n_str;
+
+    public:
+        Book(std::string author, std::string name, std::string title, int year, float n_str):
+            author(author), name(name), title(title), year(year), n_str(n_str) {} 
+
+        void printBook() {
+            std::cout << "Info: " << author << ", " << name << ", " << n_str << ", " << year <<std::endl;
+        }
+
+        ~Book() {
+            std::cout << "Book deleted" << std::endl;
+        }
+
+        void set_author(std::string author) {
+            this->author = author;
+        }
+
+        void set_name(std::string name) {
+            this->name = name;
+        }    
+
+        void set_year(int year) {
+            this->year = year;
+        }
+
+        void set_n_str(float n_str) {
+            this->n_str = n_str;
+        }
+
+        std::string get_author() {
+            return this->author;
+        }
+
+        std::string get_name() {
+            return this->name;
+        }
+
+        std::string getTitle() {
+            return title;
+        }
+
+        int get_year() {
+            return this->year;
+        }
+
+        float get_n_str() {
+            return this->n_str;
+        }
+};
+
+class Textbook : public Book {
+    private:
+        std::string subject;
+        std::string author;
+        std::string name;
+        std::string title;
+        int edition;
+        int year;
+        float n_str;
+
+
+    public:
+        Textbook(std::string author, std::string name, std::string title, int year, float n_str, std::string subject, int edition):
+        Book(author, name, title, year, n_str), subject(subject), edition(edition) {}
+
+        void TextbookInfo() {
+            std::cout << subject << ", " << edition << " поколение" << std::endl;
+        }
+
+        ~Textbook () {
+            std::cout << "Textbook has been deleted. " << std::endl;
+        }
+
+        void set_subject(std::string subject) {
+            this->subject = subject;
+        }
+
+        void set_edition(int edition) {
+            this->edition = edition;
+        }
+
+        std::string get_subject() {
+            return this->subject;
+        }
+
+        int get_edition() {
+            return this->edition;
+        }
+
+        void set_title(std::string title) {
+            this->title = title;
+        }
+
+        std::string getTitle() {
+            return title;
+        }
+};
+
+class Bookk {
+private:
+    std::string title;
+
+public:
+    Bookk(std::string t) : title(t) {}
+
+    std::string getTitle() const {
+        return title;
+    }
+};
+
+class Textbookk {
+private:
+    std::string title;
+
+public:
+    Textbookk(std::string t) : title(t) {}
+
+    std::string getTitle() const {
+        return title;
+    }
+};
+
+class Library {
+private:
+    std::vector<Bookk> books;
+    std::vector<Textbookk> textbooks;
+    std::string subject;
+    std::string author;
+    std::string name;
+    std::string title;
+    int edition;
+    int year;
+    float n_str;
+
+public:
+    void addBook(Bookk book) {
+        books.push_back(book);
+    }
+
+    void addTextbook(Textbookk textbook) {
+        textbooks.push_back(textbook);
+    }
+
+    void displayBooks() {
+        std::cout << "Books in the library:" << std::endl;
+        for (const auto& book : books) {                        
+            std::cout << book.getTitle() << std::endl;                
+        }
+        std::cout << "Textbooks in the library:" << std::endl;
+        for (const auto& textbook : textbooks) {
+            std::cout << textbook.getTitle() << std::endl; 
+        }
+    }
+};
+
+int main() {
+    Textbook myBook("Александр Пушкин", "Евгений Онегин", "Евгений Онегин", 2014, 301, "Литература", 3);
+    myBook.printBook();
+    myBook.TextbookInfo();
+
+    myBook.set_author("Александр Пушкин");
+    myBook.set_name("Мертвые души");
+    myBook.set_year(1442);
+    myBook.set_n_str(1031);
+    myBook.set_subject("Какой-то предмет");
+    myBook.set_edition(2);
+    myBook.printBook();
+    myBook.TextbookInfo();
+
+    Bookk book1("The Great Gatsby");
+    Bookk book2("To Kill a Mockingbird");
+    Textbookk textbook1("Introduction to Algorithms");
+
+    Library library;
+    library.addBook(book1);
+    library.addBook(book2);
+    library.addTextbook(textbook1);
+
+    library.displayBooks();
+
+    return 0;
+}
